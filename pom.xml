@@ -37,8 +37,6 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.0.1</version>
-      <scope>test</scope>
-      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -47,8 +45,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.specs</groupId>
-      <artifactId>specs</artifactId>
+      <groupId>org.scala-tools.testing</groupId>
+      <artifactId>specs_${scala.version}</artifactId>
       <version>1.6.5</version>
       <scope>test</scope>
     </dependency>
