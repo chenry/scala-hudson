@@ -6,6 +6,7 @@ import org.apache.http._
 import org.apache.http.message._
 import org.apache.http.client._
 import org.apache.http.impl.client._
+import org.apache.http.entity._
 import org.apache.http.client.methods._
 import org.apache.http.client.entity._
 
@@ -15,13 +16,24 @@ object HttpController {
   def getConfig(hudsonURL : String, projectName: String) : String = {
        val client = new DefaultHttpClient()
        val url = hudsonURL + URL_CONFIG_SUFFIX.replace("XXXYYYZZZ", projectName)
-       println("Url to lookup " + url)
        var httpGet = new HttpGet(url)
 
        var handler = new BasicResponseHandler()
        var responseBody = client.execute(httpGet, handler)
-       client.getConnectionManager().shutdown()
+       closeConnection(client)
        return responseBody;
+  }
+
+  def postConfig(hudsonURL : String, projectName: String, configXmlFile : java.io.File) : Unit = {
+       val client = new DefaultHttpClient()
+       val url = hudsonURL + URL_CONFIG_SUFFIX.replace("XXXYYYZZZ", projectName)
+
+       var entity = new FileEntity(configXmlFile, "text/xml; charset=\"UTF-8\"")
+
+       var httpPost = new HttpPost(url)
+       httpPost.setEntity(entity)
+       client.execute(httpPost)
+       closeConnection(client)
   }
 
   def copyJob(hudsonURL: String, fromProjectName: String, toProjectName: String) : Unit = {
@@ -38,5 +50,10 @@ object HttpController {
        var httpPost = new HttpPost(url)
        httpPost.setEntity(entity)
        client.execute(httpPost)
+       closeConnection(client)
+  }
+
+  def closeConnection(client : HttpClient) {
+       client.getConnectionManager().shutdown()
   }
 }
