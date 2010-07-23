@@ -7,7 +7,10 @@ import Assert._
 class AppTest {
 
     @Test
-    def testOK() = assertTrue(true)
+    def testStringReplacement() = {
+      var s = "/job/XXXYYYZZZ/config.xml"
+      assertEquals("/job/peanutButter/config.xml", s.replace("XXXYYYZZZ", "peanutButter"))
+    }
 
 //    @Test
 //    def testKO() = assertTrue(false)
