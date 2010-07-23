@@ -12,11 +12,15 @@ class HttpTest {
 
     @Test
     def testGetConfig() = {
-        //val url = "http://build.gfs.com:11418/job/warehouseService/config.xml"
         val url = "http://build.gfs.com:11418"
         println(HttpController.getConfig(url,"workflowManager"))
-        println(HttpController.getConfig(url,"warehouseService"))
-        println(HttpController.getConfig(url,"wmsBatch"))
+        assertTrue(true)
+    }
+
+    @Test
+    def testCopyJob() = {
+        val url = "http://build.gfs.com:11418"
+        println(HttpController.copyJob(url,"workflowManager", "AAAworkflowManager"))
         assertTrue(true)
     }
 }
