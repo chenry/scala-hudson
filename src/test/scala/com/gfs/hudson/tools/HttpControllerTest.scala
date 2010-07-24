@@ -8,20 +8,24 @@ import org.apache.http.impl.client._
 import org.apache.http.client.methods._
 
 @Test
-class HttpTest {
+class HttpControllerTest {
+    var url = ""
+    var existingProject = ""
+    @Before
+    def setup() = {
+        url = "http://build.gfs.com:11418"
+        existingProject = "workflowManager"
+    }
 
     @Test
     def testGetConfig() = {
-        val url = "http://build.gfs.com:11418"
-        println(HttpController.getConfig(url,"workflowManager"))
-        assertTrue(true)
+        val configXml = HttpController.getConfig(url,existingProject)
+        println(configXml)
     }
 
     @Test
     def testCopyJob() = {
-        val url = "http://build.gfs.com:11418"
-        println(HttpController.copyJob(url,"workflowManager", "AAAworkflowManager"))
-        assertTrue(true)
+        HttpController.copyJob(url,existingProject, "AAA" + existingProject)
     }
 }
 
